@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314086732361",
+    "project_id": "student-media-taufeeq",
+    "storage_bucket": "student-media-taufeeq.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314086732361:android:29023b61f5f2f4e26f4598",
+        "android_client_info": {
+          "package_name": "com.example.student_media"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314086732361-ogr0ip5e0d33k9mtbvvs87j6sodr7vil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_UXCLGdi91MgdW0O34NUWwETFL-aldQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314086732361-ogr0ip5e0d33k9mtbvvs87j6sodr7vil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
