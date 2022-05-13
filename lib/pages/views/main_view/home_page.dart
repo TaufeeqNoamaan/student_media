@@ -2,6 +2,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:student_media/pages/views/main_view/todo_view/todo_main_page.dart';
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -10,24 +13,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea( 
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        bottomNavigationBar: CurvedNavigationBar(
-          items: const <Widget>[
-            Icon(Icons.home_outlined, size: 30),
-            Icon(Icons.format_list_numbered_outlined, size: 30),
-            Icon(Icons.library_books_outlined, size: 30),
-          ],
-         
-          backgroundColor: Colors.white,
-          height: 58,
-          color: Colors.blue,
-          buttonBackgroundColor: Colors.redAccent,
-          animationDuration: const Duration(milliseconds: 300),
-        ),
+    return Scaffold(
         appBar: AppBar(
           // leading: ,
           shape: const RoundedRectangleBorder(
@@ -43,7 +33,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.white, fontSize: 33, letterSpacing: 2.5),
           ),
         ),
-      ),
-    );
+      );
+ 
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:student_media/entry_page.dart';
-import 'package:student_media/pages/home_page.dart';
+import 'package:student_media/pages/views/main_view/blog_view/blog_view_main_page.dart';
+
+import 'package:student_media/pages/views/main_view/home_page.dart';
+import 'package:student_media/pages/views/main_view/main_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: MainPage(),
     );
   }
 }
