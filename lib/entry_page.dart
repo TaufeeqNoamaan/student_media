@@ -1,14 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_toggle_tab/flutter_toggle_tab.dart';
+import 'package:student_media/utils/routes/routes.dart';
+
 
 class EntryPage extends StatelessWidget {
   const EntryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int index = 0;
+   
     return SafeArea(
       child: Container(
         height: double.maxFinite,
@@ -46,14 +47,18 @@ class EntryPage extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
-            FlutterToggleTab(
-              borderRadius: 30,
-              labels: ['Register', 'Login'],
-              selectedLabelIndex: (index) {},
-              selectedTextStyle: TextStyle(color: Colors.blue, fontSize: 18),
-              unSelectedTextStyle: TextStyle(color: Colors.white, fontSize: 18),
-              selectedIndex: 0,
-            )
+            
+            Container( width: 320, padding: EdgeInsets.only(bottom: 20),
+              child: ElevatedButton(onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(logInRoute, (route) => false);
+              }, child: const Text('Sign In'), style: ButtonStyle(
+                elevation: MaterialStateProperty.all(10), 
+              ),),
+            ),
+            Container( width: 320,
+              child: ElevatedButton(onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(registerRoute, (route) => false);
+              }, child: const Text('Register'),),),
           ],
         ),
       ),
