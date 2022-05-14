@@ -38,10 +38,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: RegisterPage(),
+      home: LoginPage(),
       routes: {
         logInRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterPage(),
+        mainPageRoute:(context) => const MainPage(),
+        
       },
     );
   }

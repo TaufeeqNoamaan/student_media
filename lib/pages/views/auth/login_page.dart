@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_media/utils/routes/routes.dart';
 
@@ -9,6 +10,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,11 +56,12 @@ class _LoginPageState extends State<LoginPage> {
               height: 60,
               width: 355,
               child: TextField(
+                controller: _email,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 decoration: InputDecoration(
                   hintText: 'Enter your email',
-                  icon: Icon(Icons.email),
+                  icon: const Icon(Icons.email),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -56,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 60,
               width: 355,
               child: TextField(
+                controller: _password,
                 obscureText: true,
                 autocorrect: false,
                 decoration: InputDecoration(
@@ -73,7 +93,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               width: 275,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final email = _email.text;
+                  final password = _password.text;
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil(mainPageRoute, (route) => false);
+                },
                 child: const Text('Sign in'),
               ),
             ),

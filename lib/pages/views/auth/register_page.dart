@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_media/utils/routes/routes.dart';
+import 'dart:developer' show log;
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -9,6 +11,28 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+  late final TextEditingController _name;
+
+// Initialize email and password fields in the memory
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    _name = TextEditingController();
+    super.initState();
+  }
+
+// Dispose the email and password from the memory aka free-up the memory
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    _name.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,6 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 60,
               width: 355,
               child: TextField(
+                controller: _name,
                 keyboardType: TextInputType.name,
                 autocorrect: false,
                 decoration: InputDecoration(
@@ -50,6 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 60,
               width: 355,
               child: TextField(
+                controller: _email,
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 decoration: InputDecoration(
@@ -68,6 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 60,
               width: 355,
               child: TextField(
+                controller: _password,
                 obscureText: true,
                 autocorrect: false,
                 decoration: InputDecoration(
@@ -86,7 +113,17 @@ class _RegisterPageState extends State<RegisterPage> {
               width: 250,
               height: 42,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final email = _email.text;
+                  final password = _password.text;
+                  final name = _name.text;
+                  final userCredential = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+                  log(userCredential.toString());
+                },
                 child: const Text('Register here'),
               ),
             ),
