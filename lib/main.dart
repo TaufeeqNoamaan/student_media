@@ -2,8 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:student_media/entry_page.dart';
 import 'package:student_media/firebase_options.dart';
-import 'package:student_media/pages/login_page.dart';
-import 'package:student_media/pages/register_page.dart';
+import 'package:student_media/pages/views/auth/login_page.dart';
+import 'package:student_media/pages/views/auth/register_page.dart';
+
 import 'package:student_media/pages/views/main_view/blog_view/blog_view_main_page.dart';
 
 import 'package:student_media/pages/views/main_view/home_page.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: RegisterPage(),
       routes: {
         logInRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterPage(),
