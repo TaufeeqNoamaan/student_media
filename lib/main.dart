@@ -2,8 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:student_media/entry_page.dart';
 import 'package:student_media/firebase_options.dart';
+import 'package:student_media/pages/views/auth/forgot_password_page.dart';
 import 'package:student_media/pages/views/auth/login_page.dart';
 import 'package:student_media/pages/views/auth/register_page.dart';
+import 'package:student_media/pages/views/chat/chat_master.dart';
+import 'package:student_media/pages/views/chat/chat_room.dart';
 
 import 'package:student_media/pages/views/main_view/blog_view/blog_view_main_page.dart';
 
@@ -38,12 +41,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: ChatRoom(userMap: , chatRoomId: '2'),
       routes: {
         logInRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterPage(),
-        mainPageRoute:(context) => const MainPage(),
-        
+        mainPageRoute: (context) => const MainPage(),
+        chatPageRoute:(context) => const ChatHomeScreen(),
       },
     );
   }

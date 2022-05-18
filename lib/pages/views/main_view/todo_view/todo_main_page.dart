@@ -11,7 +11,7 @@ class _TodoMainPageState extends State<TodoMainPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.maxFinite, width: double.maxFinite, color: Colors.green,
+      height: double.maxFinite, width: double.maxFinite, color: Colors.white,
       child: Text('Todo view'),
     );
   }

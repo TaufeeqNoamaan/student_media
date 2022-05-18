@@ -10,9 +10,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  // To recieve the input from the user
   late final TextEditingController _email;
   late final TextEditingController _password;
 
+
+// Initializing the variables
   @override
   void initState() {
     _email = TextEditingController();
@@ -20,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
+// Disposing the variables from the memory
   @override
   void dispose() {
     _email.dispose();

@@ -1,10 +1,15 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:student_media/pages/views/main_view/home_page.dart';
+import 'package:student_media/pages/views/main_view/home_page.dart';
 
 import 'package:student_media/pages/views/main_view/todo_view/todo_main_page.dart';
+import 'package:student_media/utils/routes/routes.dart';
+
+import 'home_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,13 +21,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return ZoomDrawer(menuScreen: MenuScreen(), mainScreen: MainScreen(),
-   style: DrawerStyle.style4,);
+    return ZoomDrawer(
+      menuScreen: MenuScreen(), mainScreen: MainScreen(),
+      //  style: DrawerStyle.style4,
+      borderRadius: 40,
+      showShadow: false,
+      angle: 0.0,
+      drawerShadowsBackgroundColor: Color(0xffECDFDF),
+      slideWidth: MediaQuery.of(context).size.width * 0.65,
+    );
   }
 }
-
-
-
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -40,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
             onPressed: () {
               ZoomDrawer.of(context)!.toggle();
             },
-            icon: Icon(Icons.menu)),
+            icon: const Icon(Icons.menu)),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(40),
@@ -66,7 +75,10 @@ class _MainScreenState extends State<MainScreen> {
                     width: 65,
                     height: 65,
                     child: FloatingActionButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              chatPageRoute, (route) => false);
+                        },
                         child: const Icon(
                           Icons.chat,
                           size: 30,
@@ -81,26 +93,16 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-class MenuItems {
- var  pomodoroTimer = MenuItem('Pomodoro Timer', Icons.timer);
-}
-
-
-
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo,
+      backgroundColor: Colors.blueAccent,
+      body: ListView(
+        children:  [Text('Test Text')],
+      ),
     );
   }
-}
-
-class MenuItem {
-  final String title;
-  final IconData icon ;
-
-  MenuItem(this.title, this.icon);
 }

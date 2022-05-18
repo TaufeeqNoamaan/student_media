@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:student_media/utils/routes/routes.dart';
@@ -114,15 +115,32 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 42,
               child: ElevatedButton(
                 onPressed: () async {
-                  final email = _email.text;
-                  final password = _password.text;
-                  final name = _name.text;
-                  final userCredential = await FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                    email: email,
-                    password: password,
-                  );
-                  log(userCredential.toString());
+                  try {
+                    final email = _email.text;
+                    final password = _password.text;
+                    final name = _name.text;
+                    final userCredential = await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+                    log(userCredential.toString());
+
+                    await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .set({
+                      "name": name,
+                      "email": email,
+                      "status": "Unavailabe"
+                    });
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        mainPageRoute, (route) => false);
+                  } 
+                  // TODO: Display an alert dialog box showing firebaseauth exeptions
+                  catch (e) {
+                    log(e.toString());
+                  }
                 },
                 child: const Text('Register here'),
               ),

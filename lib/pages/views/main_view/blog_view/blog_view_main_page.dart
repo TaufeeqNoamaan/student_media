@@ -6,7 +6,7 @@ class BlogMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.maxFinite, width: double.maxFinite, color: Colors.red,
+      height: double.maxFinite, width: double.maxFinite, color: Colors.white,
       child: Text('Blog view'),
     );
   }
