@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:student_media/pages/chat/stream_user_api.dart';
 import 'package:student_media/utils/routes/routes.dart';
 import 'dart:developer' show log;
 
@@ -125,18 +126,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       password: password,
                     );
                     log(userCredential.toString());
+                    StreamUserApi.createUser(
+                        idUser: email,
+                        userName: name,
+                        urlImage:
+                            'https://images.unsplash.com/photo-1652904429112-432f2905f2a1?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530');
 
-                    await FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .set({
-                      "name": name,
-                      "email": email,
-                      "status": "Unavailabe"
-                    });
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         mainPageRoute, (route) => false);
-                  } 
+                  }
                   // TODO: Display an alert dialog box showing firebaseauth exeptions
                   catch (e) {
                     log(e.toString());

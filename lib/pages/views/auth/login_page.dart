@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart' show User;
+import 'package:student_media/pages/chat/stream_api.dart';
+import 'package:student_media/pages/chat/stream_user_api.dart';
 import 'package:student_media/utils/routes/routes.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,11 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   // To recieve the input from the user
   late final TextEditingController _email;
   late final TextEditingController _password;
-
 
 // Initializing the variables
   @override
@@ -101,8 +102,11 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
+
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                       email: email, password: password);
+
+                  StreamUserApi.login(idUser: email);
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(mainPageRoute, (route) => false);
                 },
