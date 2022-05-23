@@ -19,6 +19,7 @@ import 'package:student_media/pages/views/main_view/blog_view/blog_view_main_pag
 
 import 'package:student_media/pages/views/main_view/home_page.dart';
 import 'package:student_media/pages/views/main_view/main_view.dart';
+import 'package:student_media/pages/views/main_view/todo_view/add_tasks.dart';
 import 'package:student_media/pages/views/main_view/todo_view/todo_main_page.dart';
 import 'package:student_media/utils/routes/routes.dart';
 
@@ -38,13 +39,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: lightColorScheme),
-     darkTheme: ThemeData(colorScheme: darkColorScheme),
-      home: TodoMainPage(),
+      // darkTheme: ThemeData(colorScheme: darkColorScheme),
+      home: MainPage(),
       routes: {
         logInRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterPage(),
         mainPageRoute: (context) => const MainPage(),
         chatPageRoute: (context) => const ChatHomePage(),
+        tasksPageRoute: (context) =>  const AddTaskPage(),
+        mainTasksPageRoute:(context) => const TodoMainPage(),
+        
       },
     );
   }

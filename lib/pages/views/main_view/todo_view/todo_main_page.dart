@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:student_media/utils/routes/routes.dart';
 import 'package:student_media/utils/widgets/widgets.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class TodoMainPage extends StatefulWidget {
-  const TodoMainPage({Key? key}) : super(key: key);
+  
+ const  TodoMainPage({Key? key}) : super(key: key);
 
   @override
   State<TodoMainPage> createState() => _TodoMainPageState();
 }
 
 class _TodoMainPageState extends State<TodoMainPage> {
+  
   DateTime _selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,11 @@ class _TodoMainPageState extends State<TodoMainPage> {
                       ],
                     ),
                   ),
-                  MyButton(label: '+  Add Task', onTap: null)
+                  MyButton(
+                      label: '+  Add Task',
+                      onTap: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              tasksPageRoute, (route) => false))
                 ],
               ),
             ),
@@ -78,7 +85,8 @@ class _TodoMainPageState extends State<TodoMainPage> {
                 },
               ),
             ),
-            // **
+        
+           
           ],
         ),
       ),
