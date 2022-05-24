@@ -19,6 +19,16 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   DateTime _selectedDate = DateTime.now();
 
+  int _selectedRem = 5;
+  List<int> remList = [
+    5,
+    10,
+    15,
+    20,
+  ];
+  String _selectedRepeat = 'None';
+  List<String> repeatList = ['None', 'Weakly', 'Monthly'];
+
   _getDateFromUser(context) async {
     DateTime? _pickerDate = await showDatePicker(
       context: context,
@@ -36,19 +46,19 @@ class _AddTaskPageState extends State<AddTaskPage> {
   String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
   String _endTime = '9:30 PM';
 
-  _getTimeFromUser({bool? isStartTime}) async{
+  _getTimeFromUser({bool? isStartTime}) async {
     var pickedTime = await _showTimePicker(context);
     String _formatedTime = pickedTime.format(context);
     if (pickedTime == null) {
       print('Time canceled');
     } else if (isStartTime == true) {
-     setState(() {
+      setState(() {
         _startTime = _formatedTime;
-     });
+      });
     } else if (isStartTime == false) {
-     setState(() {
+      setState(() {
         _endTime = _formatedTime;
-     });
+      });
     }
   }
 
@@ -62,10 +72,26 @@ class _AddTaskPageState extends State<AddTaskPage> {
         initialEntryMode: TimePickerEntryMode.input);
   }
 
+  int _selectedColor = 0;
+
+  _validateDate() {
+    if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
+      // add to database
+
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil(mainPageRoute, (route) => false);
+    } else if (titleController.text.isEmpty || noteController.text.isEmpty) {
+     throw SnackBar(
+        content: Text('All fields are Required'),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           toolbarHeight: 45,
           backgroundColor: Colors.white,
@@ -125,8 +151,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       width: 355,
                       child: TextField(
                         controller: titleController,
-                        obscureText: true,
-                        autocorrect: false,
+                        obscureText: false,
+                        autocorrect: true,
                         decoration: InputDecoration(
                           hintText: 'Enter title here',
                           suffixIcon: const Icon(Icons.title),
@@ -140,7 +166,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     // *? NOTE Field
                     Container(
                       margin: const EdgeInsets.only(
-                        top: 25,
+                        top: 12,
                         left: 15,
                         bottom: 10,
                       ),
@@ -161,8 +187,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       width: 355,
                       child: TextField(
                         controller: noteController,
-                        obscureText: true,
-                        autocorrect: false,
+                        obscureText: false,
+                        autocorrect: true,
                         decoration: InputDecoration(
                           hintText: 'Enter note here',
                           suffixIcon: const Icon(Icons.note_add),
@@ -177,7 +203,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
                     Container(
                       margin: const EdgeInsets.only(
-                        top: 25,
+                        top: 12,
                         left: 15,
                         bottom: 10,
                       ),
@@ -228,17 +254,17 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     ),
                     // *? Time Field
                     Container(
-                      margin: EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 12),
                       child: Row(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(right: 15),
+                            margin: const EdgeInsets.only(right: 15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                    margin:
-                                        EdgeInsets.only(bottom: 12, left: 15),
+                                    margin: const EdgeInsets.only(
+                                        bottom: 12, left: 15),
                                     child: Text(
                                       'Start Time',
                                       style: GoogleFonts.lato(
@@ -327,6 +353,209 @@ class _AddTaskPageState extends State<AddTaskPage> {
                               ),
                             ],
                           ),
+                        ],
+                      ),
+                    ),
+
+                    // *? REMIND Field
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 12,
+                        left: 15,
+                        bottom: 10,
+                      ),
+                      child: Text(
+                        'Remind',
+                        style: GoogleFonts.lato(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      height: 52,
+                      width: 355,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              '$_selectedRem minutes early',
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: DropdownButton(
+                              underline: Container(
+                                height: 0,
+                              ),
+                              iconSize: 30,
+                              elevation: 4,
+                              items: remList
+                                  .map<DropdownMenuItem<String>>((int value) {
+                                return DropdownMenuItem<String>(
+                                  child: Text(value.toString()),
+                                  value: value.toString(),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedRem = int.parse(newValue!);
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // *? REPEAT FIELD
+
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 12,
+                        left: 15,
+                        bottom: 10,
+                      ),
+                      child: Text(
+                        'Repeat',
+                        style: GoogleFonts.lato(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 15,
+                      ),
+                      height: 52,
+                      width: 355,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              '$_selectedRepeat',
+                              style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: DropdownButton(
+                              underline: Container(
+                                height: 0,
+                              ),
+                              iconSize: 30,
+                              elevation: 4,
+                              items: repeatList.map<DropdownMenuItem<String>>(
+                                  (String? value) {
+                                return DropdownMenuItem<String>(
+                                  child: Text(
+                                    value!,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                  value: value,
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  _selectedRepeat = newValue!;
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // *? COLOR Palette
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Color',
+                                style: GoogleFonts.lato(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Wrap(
+                                children: List<Widget>.generate(3, (index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedColor = index;
+                                      });
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: CircleAvatar(
+                                        child: _selectedColor == index
+                                            ? Icon(
+                                                Icons.done,
+                                                color: Colors.white,
+                                                size: 20,
+                                              )
+                                            : Container(),
+                                        radius: 15,
+                                        backgroundColor: index == 0
+                                            ? Colors.indigoAccent
+                                            : index == 1
+                                                ? Colors.pinkAccent
+                                                : Colors.amberAccent,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              )
+                            ],
+                          ),
+                          MyButton(
+                              label: 'Create Task',
+                              onTap: () {
+                                _validateDate();
+                              }),
                         ],
                       ),
                     ),

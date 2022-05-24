@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: lightColorScheme),
       // darkTheme: ThemeData(colorScheme: darkColorScheme),
-      home: MainPage(),
+      home: LoginPage(),
       routes: {
         logInRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterPage(),
