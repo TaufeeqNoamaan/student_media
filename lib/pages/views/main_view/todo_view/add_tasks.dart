@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:student_media/models/controllers/task_controller.dart';
+import 'package:student_media/models/task.dart';
 import 'package:student_media/pages/views/main_view/todo_view/todo_main_page.dart';
 import 'package:student_media/utils/routes/routes.dart';
 import 'package:student_media/utils/widgets/widgets.dart';
@@ -13,6 +16,7 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TaskController _taskController = Get.put(TaskController());
   final titleController = TextEditingController();
 
   final noteController = TextEditingController();
@@ -77,14 +81,34 @@ class _AddTaskPageState extends State<AddTaskPage> {
   _validateDate() {
     if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
       // add to database
+      _addTaskToDb() {
+        _taskController.addTask();
+      }
 
+      
       Navigator.of(context)
           .pushNamedAndRemoveUntil(mainPageRoute, (route) => false);
     } else if (titleController.text.isEmpty || noteController.text.isEmpty) {
-     throw SnackBar(
+      throw SnackBar(
         content: Text('All fields are Required'),
       );
     }
+  }
+
+  _addTaskToDb() async{
+   int value = await _taskController.addTask( task:
+    Task(
+      note: noteController.text,
+      title: titleController.text,
+      date: DateFormat.yMd().format(_selectedDate),
+      startTime: _startTime,
+      endTime: _endTime,
+      remind: _selectedRem,
+      repeat: _selectedRepeat,
+      color: _selectedColor,
+      isCompleted: 0,
+    )
+    );
   }
 
   @override

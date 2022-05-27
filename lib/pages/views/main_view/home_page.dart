@@ -1,8 +1,9 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:student_media/pages/views/main_view/home_page.dart';
 import 'package:student_media/pages/views/main_view/home_page.dart';
 
@@ -27,8 +28,9 @@ class _HomePageState extends State<HomePage> {
       borderRadius: 40,
       showShadow: false,
       angle: 0.0,
-      drawerShadowsBackgroundColor: Color(0xffECDFDF),
+      // drawerShadowsBackgroundColor: Color(0xffECDFDF),
       slideWidth: MediaQuery.of(context).size.width * 0.65,
+      menuBackgroundColor: Colors.blueAccent,
     );
   }
 }
@@ -101,7 +103,112 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: ListView(
-        children:  [Text('Test Text')],
+        children: [
+          const SizedBox(height: 75),
+          ListTile(
+            enableFeedback: true,
+            minLeadingWidth: 20,
+            leading: const Icon(
+              Icons.timer,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Pomodoro View',
+              style: GoogleFonts.lato(
+                  color: Colors.white, fontWeight: FontWeight.w600),
+            ),
+            onTap: () {},
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          ListTile(
+            enableFeedback: true,
+            minLeadingWidth: 20,
+            leading: const Icon(
+              Icons.monochrome_photos,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Moments View',
+              style: GoogleFonts.lato(
+                  color: Colors.white, fontWeight: FontWeight.w600),
+            ),
+            onTap: () {},
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          ListTile(
+            enableFeedback: true,
+            minLeadingWidth: 20,
+            leading: const Icon(
+              Icons.menu_book,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Projects View',
+              style: GoogleFonts.lato(
+                  color: Colors.white, fontWeight: FontWeight.w600),
+            ),
+            onTap: () {},
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          ListTile(
+            enableFeedback: true,
+            minLeadingWidth: 20,
+            leading: const Icon(
+              Icons.timer,
+              color: Colors.white,
+            ),
+            title: Text(
+              'Pomodoro View',
+              style: GoogleFonts.lato(
+                  color: Colors.white, fontWeight: FontWeight.w600),
+            ),
+            onTap: () {},
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          ListTile(
+            minLeadingWidth: 20,
+            enableFeedback: true,
+            leading: const Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            title: Text(
+              'My Profile',
+              style: GoogleFonts.lato(
+                  color: Colors.white, fontWeight: FontWeight.w600),
+            ),
+            onTap: () {},
+          ),
+          const SizedBox(
+            height: 55,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 35, right: 30),
+            height: 45,
+            child: ElevatedButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+              child: const Text(
+                'Sign out',
+                style: TextStyle(
+                    color: Colors.deepPurpleAccent,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
+              ),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white)),
+            ),
+          )
+        ],
       ),
     );
   }

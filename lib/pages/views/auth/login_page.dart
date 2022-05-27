@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                       email: email, password: password);
 
-                  StreamUserApi.login(idUser: email);
+                 
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil(mainPageRoute, (route) => false);
                 },

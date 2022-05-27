@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
+import 'package:student_media/pages/chat/stream_api.dart';
 import 'package:student_media/pages/chat/stream_user_api.dart';
 import 'package:student_media/utils/routes/routes.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:developer' show log;
 
 class RegisterPage extends StatefulWidget {
@@ -16,6 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   late final TextEditingController _email;
   late final TextEditingController _password;
   late final TextEditingController _name;
+
+  get client => StreamApi.client;
 
 // Initialize email and password fields in the memory
   @override
@@ -126,11 +131,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       password: password,
                     );
                     log(userCredential.toString());
-                    StreamUserApi.createUser(
-                        idUser: email,
-                        userName: name,
-                        urlImage:
-                            'https://images.unsplash.com/photo-1652904429112-432f2905f2a1?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1530');
+                    
+
+                    FirebaseMessaging.instance.onTokenRefresh.listen((token) {
+                      client.addDevice(token, PushProvider.firebase);
+                    });
 
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         mainPageRoute, (route) => false);

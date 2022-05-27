@@ -51,6 +51,10 @@ dependencies:
   intl: ^0.17.0
   date_picker_timeline: ^1.2.3
   sqflite: ^2.0.2+1
+  get: ^4.6.5
+  firebase_messaging: ^11.4.0
+  cloud_functions: ^3.2.15
+  firebase_admin: ^0.2.0-dev.7
 
 dev_dependencies:
   flutter_test:

@@ -1,21 +1,24 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:student_media/models/controllers/task_controller.dart';
 import 'package:student_media/utils/routes/routes.dart';
 import 'package:student_media/utils/widgets/widgets.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 
 class TodoMainPage extends StatefulWidget {
-  
- const  TodoMainPage({Key? key}) : super(key: key);
+  const TodoMainPage({Key? key}) : super(key: key);
 
   @override
   State<TodoMainPage> createState() => _TodoMainPageState();
 }
 
 class _TodoMainPageState extends State<TodoMainPage> {
-  
   DateTime _selectedDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -85,8 +88,26 @@ class _TodoMainPageState extends State<TodoMainPage> {
                 },
               ),
             ),
-        
-           
+
+           Expanded(
+    child: Obx(
+      () {
+        final taskController = Get.put(TaskController());
+        return ListView.builder(
+           itemCount: taskController.taskList.length,
+          itemBuilder: (_, context) {
+            log(taskController.taskList.length.toString());
+            return Container(
+              height: 50,
+              width: 150,
+              color: Colors.greenAccent,
+            );
+          },
+         
+        );
+      },
+    ),
+  ),
           ],
         ),
       ),
@@ -109,3 +130,24 @@ TextStyle get headingStyle {
     ),
   );
 }
+
+// _showTasks() {
+//   return Expanded(
+//     child: Obx(
+//       () {
+//         final taskController = Get.put(TaskController());
+//         return ListView.builder(
+//           itemBuilder: (_, context) {
+//             print(taskController.taskList.length);
+//             return Container(
+//               height: 50,
+//               width: 50,
+//               color: Colors.greenAccent,
+//             );
+//           },
+//           itemCount: taskController.taskList.length,
+//         );
+//       },
+//     ),
+//   );
+// }

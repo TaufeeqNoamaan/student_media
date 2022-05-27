@@ -22,6 +22,7 @@ class Task {
     this.color,
     this.remind,
     this.repeat,
+    this.note,
   });
 
   Task.fromJson(Map<String, dynamic> json) {
@@ -42,14 +43,13 @@ class Task {
     data['title'] = this.title;
     data['isCompleted'] = this.isCompleted;
     data['startTime'] = this.startTime;
-      data['endTime'] = this.endTime;
-      data['color'] = this.color;
-        data['remind'] = this.remind;
-        data['repeat'] = this.repeat;
-        return data;
+    data['endTime'] = this.endTime;
+    data['color'] = this.color;
+    data['remind'] = this.remind;
+    data['repeat'] = this.repeat;
+    return data;
   }
-
-
-
-
 }
+
+
+ 
