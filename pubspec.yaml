@@ -55,6 +55,9 @@ dependencies:
   firebase_messaging: ^11.4.0
   cloud_functions: ^3.2.15
   firebase_admin: ^0.2.0-dev.7
+  cached_network_image: ^3.2.1
+  faker: ^2.0.0
+  jiffy: ^5.0.0
 
 dev_dependencies:
   flutter_test:

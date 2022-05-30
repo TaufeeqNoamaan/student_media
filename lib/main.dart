@@ -8,10 +8,9 @@ import 'package:student_media/colors.dart';
 import 'package:student_media/database/db_helper.dart';
 import 'package:student_media/entry_page.dart';
 import 'package:student_media/firebase_options.dart';
+import 'package:student_media/pages/chat/api/stream_api.dart';
 import 'package:student_media/pages/chat/chat_master.dart';
-import 'package:student_media/pages/chat/stream_api.dart';
-import 'package:student_media/pages/chat/stream_channel_api.dart';
-import 'package:student_media/pages/chat/stream_user_api.dart';
+
 import 'package:student_media/pages/views/auth/forgot_password_page.dart';
 import 'package:student_media/pages/views/auth/login_page.dart';
 import 'package:student_media/pages/views/auth/register_page.dart';
@@ -25,29 +24,39 @@ import 'package:student_media/pages/views/main_view/todo_view/todo_main_page.dar
 import 'package:student_media/utils/routes/routes.dart';
 
 void main() async {
+  final client = StreamChatClient(StreamApi.apiKey);
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await DBHelper.initDb();
-  runApp(const MyApp());
+
+  runApp(MyApp(
+    client: client,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.client}) : super(key: key);
+
+  final StreamChatClient client;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // builder: (BuildContext context, child) {
+      //   return StreamChatCore(client: client, child: child!);
+      // },
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: lightColorScheme),
       // darkTheme: ThemeData(colorScheme: darkColorScheme),
-      home: ChatHomePage(),
+      home: LoginPage(),
+
       routes: {
         logInRoute: (context) => const LoginPage(),
         registerRoute: (context) => const RegisterPage(),
         mainPageRoute: (context) => const MainPage(),
-        chatPageRoute: (context) => const ChatHomePage(),
+        chatPageRoute: (context) => const ChatPage(),
         tasksPageRoute: (context) => const AddTaskPage(),
         mainTasksPageRoute: (context) => const TodoMainPage(),
       },

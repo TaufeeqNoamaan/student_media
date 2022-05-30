@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
-import 'package:student_media/pages/chat/stream_api.dart';
-import 'package:student_media/pages/chat/stream_user_api.dart';
+import 'package:student_media/pages/chat/api/stream_api.dart';
+
+
+
 import 'package:student_media/utils/routes/routes.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:developer' show log;

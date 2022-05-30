@@ -1,8 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart' show User;
-import 'package:student_media/pages/chat/stream_api.dart';
-import 'package:student_media/pages/chat/stream_user_api.dart';
 import 'package:student_media/utils/routes/routes.dart';
 
 class LoginPage extends StatefulWidget {

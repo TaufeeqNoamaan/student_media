@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
-import 'package:student_media/pages/chat/stream_api.dart';
+import 'package:student_media/pages/chat/api/stream_api.dart';
+
 
 class StreamChannelApi {
   static Future<Channel> createChannelWithUsers({

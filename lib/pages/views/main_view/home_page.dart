@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 import 'package:student_media/pages/views/main_view/home_page.dart';
 import 'package:student_media/pages/views/main_view/home_page.dart';
 
@@ -78,6 +79,7 @@ class _MainScreenState extends State<MainScreen> {
                     height: 65,
                     child: FloatingActionButton(
                         onPressed: () {
+                       
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               chatPageRoute, (route) => false);
                         },
